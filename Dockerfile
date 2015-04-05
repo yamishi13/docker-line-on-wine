@@ -27,4 +27,4 @@ RUN su developer && \
     wget http://dl.desktop.line.naver.jp/naver/LINE/win/LineInst.exe && \
     7z x -y LineInst.exe
 
-CMD ["bash", "-C", "sudo -H -u developer xvfb-run -a wine /home/developer/line_tmp/??/Line.exe"]
+CMD ["bash", "-C", "sudo -H -u developer wine /home/developer/line_tmp/??/Line.exe"]
