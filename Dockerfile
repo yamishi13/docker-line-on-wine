@@ -19,3 +19,21 @@ RUN apt-get install p7zip-full xvfb wine -y
 
 RUN sudo -H -u developer bash -c "WINEARCH=win32 WINEPREFIX=~/.wine winecfg && \
  xvfb-run winetricks --unattended vcrun2008"
+
+RUN su developer && \
+    mkdir line_tmp && \
+    cd line_tmp && \
+    wget http://dl.desktop.line.naver.jp/naver/LINE/win/LineInst.exe && \
+    7z x -y LineInst.exe
+
+RUN su developer || \
+    inode1=$(ls -ilab | awk 'FNR == 4 {print $1}') || \
+    inode2=$(ls -ilab | awk 'FNR == 6 {print $1}') || \
+    find . -inum $inode1 -exec mv {} LINE \; || \
+    find . -inum $inode2 -exec mv {} resources \; || \
+    mv ./resources/res ./LINE || \
+    mv ./LINE ../ || \
+    cd .. || \
+    rm -R line_tmp
+
+CMD ["bash", "-C", "sudo -H -u developer /home/developer/LINE/LinePlayer/LinePlayer.exe"]
