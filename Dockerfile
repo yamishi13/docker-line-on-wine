@@ -17,6 +17,6 @@ RUN mkdir -p /home/developer && \
 
 RUN apt-get install p7zip-full xvfb wine -y
 
-RUN rm -r ~/.wine && WINEARCH=win32 WINEPREFIX=~/.wine winecfg
+RUN bash -c "rm -r ~/.wine || WINEARCH=win32 WINEPREFIX=~/.wine winecfg"
 
 RUN xvfb-run winetricks --unattended vcrun2008
