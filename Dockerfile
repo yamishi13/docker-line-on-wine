@@ -21,7 +21,7 @@ RUN sudo -H -u developer bash -c "WINEARCH=win32 WINEPREFIX=~/.wine winecfg && \
  xvfb-run winetricks --unattended vcrun2008"
 
 RUN su developer && \
-    cd /home/developer
+    cd /home/developer && \
     mkdir line_tmp && \
     cd line_tmp && \
     wget http://dl.desktop.line.naver.jp/naver/LINE/win/LineInst.exe && \
