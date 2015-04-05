@@ -4,7 +4,7 @@ MAINTAINER Roberto Carlos Martinez Arriaga <roberto.mtzarriaga@gmail.com>
 
 RUN dpkg --add-architecture i386
 
-RUN apt-get update && sudo apt-get upgrade
+RUN apt-get update && apt-get dist-upgrade -y
 
 ENV uid=1000 gid=1000
 
@@ -15,6 +15,8 @@ RUN mkdir -p /home/developer && \
     chmod 0440 /etc/sudoers.d/developer && \
     chown ${uid}:${gid} -R /home/developer
 
-RUN apt-get install -y p7zip-full winetricks
+RUN apt-get install p7zip-full xvfb wine -y
 
-RUN winetricks vcrun2008
+RUN rm -r ~/.wine && WINEARCH=win32 WINEPREFIX=~/.wine winecfg
+
+RUN xvfb-run winetricks --unattended vcrun2008
